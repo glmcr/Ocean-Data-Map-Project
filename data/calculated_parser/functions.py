@@ -386,6 +386,29 @@ def deepsoundchannelbottom(depth, latitude, temperature, salinity) -> np.ndarray
     # Finito...LOOK MOM! NO LOOPS!!!
     return depth[min_difference]
 
+def depthexcess(depth, latitude, temperature, salinity, mbathy_idx) -> np.ndarray:
+    """
+    Difference between the Deep Sound Channel Bottom and the Ocean Bottom.
+
+    Required Arguments:
+
+        * depth: Depth in meters
+
+        * latitude: Latitude in degrees North
+
+        * temperature: Temperatures in Celsius
+
+        * salinity: Salinity
+
+        * mbathy_idx: 
+    """
+
+    dscb = deepsoundchannelbottom(depth, latitude, temperature, salinity)
+
+    bottom_depth = depth[mbathy_idx]
+
+    # Actually do the math.
+    return np.ndarray(dscb - bottom_depth)
 
 def _metpy(func, data, lat, lon, dim):
     """Wrapper for MetPy functions
